@@ -1,3 +1,5 @@
+
+create Database IF NOT EXISTS University_Enterprise;
 USE University_Enterprise;
 
 -- Drop and create classroom table
@@ -20,7 +22,7 @@ CREATE TABLE IF NOT EXISTS department (
 -- Drop and create course table
 DROP TABLE IF EXISTS course;
 CREATE TABLE IF NOT EXISTS course (
-    course_id INT PRIMARY KEY,
+    course_id VARCHAR(50) PRIMARY KEY,
     title VARCHAR(30),
     dept_name VARCHAR(40),
     credits INT,
@@ -121,76 +123,147 @@ CREATE TABLE IF NOT EXISTS prereq (
 
 
 -- Insert data into classroom
-INSERT INTO classroom (building, room_number, capacity)
-VALUES 
-('Watson', '101', 50),
-('Watson', '102', 30),
-('Taylor', '201', 40),
-('Taylor', '202', 35);
+INSERT INTO classroom (building, room_number, capacity) VALUES
+('Packard', '101', 500),
+('Painter', '514', 10),
+('Taylor', '3128', 70),
+('Watson', '100', 30),
+('Watson', '120', 50);
+
 
 -- Insert data into department
-INSERT INTO department (dept_name, building, budget)
-VALUES 
-('Computer Science', 'Watson', 120000),
-('Mathematics', 'Taylor', 90000),
-('Physics', 'Taylor', 80000),
-('History', 'Watson', 70000);
+INSERT INTO department (dept_name, building, budget) VALUES
+('Biology', 'Watson', 90000),
+('Com. Sci.', 'Taylor', 100000),
+('Ele. Eng.', 'Taylor', 85000),
+('Finance', 'Painter', 120000),
+('History', 'Painter', 50000),
+('Music', 'Packard', 80000),
+('Physics', 'Watson', 70000);
+
 
 -- Insert data into course
-INSERT INTO course (course_id, title, dept_name, credits)
-VALUES
-(101, 'Database Systems', 'Computer Science', 4),
-(102, 'Algorithms', 'Computer Science', 3),
-(202, 'Quantum Mechanics', 'Physics', 3),
-(201, 'Linear Algebra', 'Mathematics', 3);
+INSERT INTO course (course_id, title, dept_name, credits) VALUES
+('BIO-101', 'Intro. to Biology', 'Biology', 4),
+('BIO-301', 'Genetics', 'Biology', 4),
+('BIO-399', 'Computational Biology', 'Biology', 3),
+('CS-101', 'Intro. to Computer Science', 'Comp. Sci.', 4),
+('CS-190', 'Game Design', 'Comp. Sci.', 4),
+('CS-315', 'Robotics', 'Comp. Sci.', 3),
+('CS-319', 'Image Processing', 'Comp. Sci.', 3),
+('CS-347', 'Database System Concepts', 'Comp. Sci.', 3),
+('EE-181', 'Intro. to Digital Systems', 'Elec. Eng.', 3),
+('FIN-201', 'Investment Banking', 'Finance', 3),
+('HIS-351', 'World History', 'History', 3),
+('MU-199', 'Music Video Production', 'Music', 3),
+('PHY-101', 'Physical Principles', 'Physics', 4);
+
 
 -- Insert data into instructor
-INSERT INTO instructor (ID, name, dept_name, salary)
-VALUES 
-(1, 'Alice', 'Computer Science', 90000),
-(2, 'Bob', 'Mathematics', 85000),
-(3, 'Charlie', 'Physics', 75000),
-(4, 'Diana', 'History', 60000);
+INSERT INTO instructor (ID, name, dept_name, salary) VALUES
+(10101, 'Srinivasan', 'Comp. Sci.', 65000),
+(12121, 'Wu', 'Finance', 90000),
+(15151, 'Mozart', 'Music', 40000),
+(22222, 'Einstein', 'Physics', 95000),
+(32343, 'El Said', 'History', 60000),
+(33456, 'Gold', 'Physics', 87000),
+(45565, 'Katz', 'Comp. Sci.', 75000),
+(58583, 'Califieri', 'History', 62000),
+(76543, 'Singh', 'Finance', 80000),
+(76766, 'Crick', 'Biology', 72000),
+(83821, 'Brandt', 'Comp. Sci.', 92000),
+(98345, 'Kim', 'Elec. Eng.', 80000);
+
 
 -- Insert data into section
-INSERT INTO section (course_id, sec_id, semester, year, building, room_number, time_slot_id)
-VALUES 
-(101, 'A', 'Fall', 2024, 'Watson', '101', 'TS1'),
-(102, 'B', 'Spring', 2025, 'Watson', '102', 'TS2'),
-(201, 'A', 'Fall', 2024, 'Taylor', '201', 'TS3'),
-(202, 'B', 'Spring', 2025, 'Taylor', '202', 'TS4');
+INSERT INTO section (course_id, sec_id, semester, year, building, room_number, time_slot_id) VALUES
+('BIO-101', '1', 'Summer', 2009, 'Painter', '514', 'B'),
+('BIO-301', '1', 'Summer', 2010, 'Painter', '514', 'A'),
+('CS-101', '1', 'Fall', 2009, 'Packard', '101', 'H'),
+('CS-101', '1', 'Spring', 2010, 'Packard', '101', 'F'),
+('CS-190', '1', 'Spring', 2009, 'Taylor', '3128', 'E'),
+('CS-190', '2', 'Spring', 2009, 'Taylor', '3128', 'A'),
+('CS-315', '1', 'Spring', 2010, 'Watson', '120', 'D'),
+('CS-319', '1', 'Spring', 2010, 'Watson', '100', 'B'),
+('CS-319', '2', 'Spring', 2010, 'Taylor', '3128', 'C'),
+('CS-347', '1', 'Fall', 2009, 'Taylor', '3128', 'A'),
+('EE-181', '1', 'Spring', 2009', 'Taylor', '3128', 'A'),
+('FIN-201', '1', 'Spring', 2010, 'Packard', '101', 'H'),
+('HIS-351', '1', 'Spring', 2010', 'Painter', '514', 'A'),
+('MU-199', '1', 'Spring', 2010', 'Packard', '101', 'ACBCDA'),
+('PHY-101', '1', 'Fall', 2009, 'Watson', '100', 'A');
+
 
 -- Insert data into teaches
-INSERT INTO teaches (ID, course_id, sec_id, semester, year)
-VALUES 
-(1, 101, 'A', 'Fall', 2024),
-(2, 102, 'B', 'Spring', 2025),
-(3, 201, 'A', 'Fall', 2024),
-(4, 202, 'B', 'Spring', 2025);
+INSERT INTO teaches (ID, course_id, sec_id, semester, year) VALUES
+(10101, 'CS-101', '1', 'Fall', 2009),
+(10101, 'CS-315', '1', 'Spring', 2010),
+(10101, 'CS-347', '1', 'Fall', 2009),
+(12121, 'FIN-201', '1', 'Spring', 2010),
+(15151, 'MU-199', '1', 'Spring', 2010),
+(22222, 'PHY-101', '1', 'Fall', 2009),
+(32343, 'HIS-351', '1', 'Spring', 2010),
+(45565, 'CS-101', '1', 'Spring', 2010),
+(45565, 'CS-319', '1', 'Spring', 2010),
+(76766, 'BIO-101', '1', 'Summer', 2009),
+(76766, 'BIO-301', '1', 'Summer', 2010),
+(83821, 'CS-190', '1', 'Spring', 2009),
+(83821, 'CS-190', '2', 'Spring', 2009),
+(83821, 'CS-319', '2', 'Spring', 2010),
+(98345, 'EE-181', '1', 'Spring', 2009);
+
 
 -- Insert data into student
-INSERT INTO student (ID, name, dept_name, tot_cred)
-VALUES 
-(1001, 'Eve', 'Computer Science', 120),
-(1002, 'Frank', 'Mathematics', 90),
-(1003, 'Grace', 'Physics', 75),
-(1004, 'Henry', 'History', 60);
+INSERT INTO student (ID, name, dept_name, tot_cred) VALUES
+(00128, 'Zhang', 'Comp. Sci.', 102),
+(12345, 'Shankar', 'Comp. Sci.', 32),
+(19991, 'Brandt', 'History', 80),
+(23121, 'Chavez', 'Finance', 110),
+(44553, 'Peltier', 'Physics', 56),
+(45678, 'Levy', 'Physics', 46),
+(54321, 'Williams', 'Comp. Sci.', 54),
+(55739, 'Sanchez', 'Music', 38),
+(70557, 'Snow', 'Physics', 0),
+(76543, 'Brown', 'Comp. Sci.', 58),
+(76653, 'Aoi', 'Elec. Eng.', 60),
+(98765, 'Bourikas', 'Elec. Eng.', 98),
+(98988, 'Tanaka', 'Biology', 120);
+
 
 -- Insert data into takes
-INSERT INTO takes (ID, course_id, sec_id, semester, year, grade)
-VALUES 
-(1001, 101, 'A', 'Fall', 2024, 'A'),
-(1002, 102, 'B', 'Spring', 2025, 'B'),
-(1003, 201, 'A', 'Fall', 2024, 'A'),
-(1004, 202, 'B', 'Spring', 2025, 'C');
+INSERT INTO takes (ID, course_id, sec_id, semester, year, grade) VALUES
+(00128, 'CS-101', '1', 'Fall', 2009, 'A'),
+(00128, 'CS-347', '1', 'Fall', 2009, 'A'),
+(12345, 'CS-101', '1', 'Fall', 2009, 'C'),
+(12345, 'CS-190', '2', 'Spring', 2009, 'A'),
+(12345, 'CS-315', '10', 'Spring', 2010, 'A'),
+(12345, 'CS-347', '1', 'Fall', 2009, 'A'),
+(19991, 'HIS-351', '1', 'Spring', 2010, 'B'),
+(23121, 'FIN-201', '1', 'Spring', 2010, 'C+'),
+(44553, 'PHY-101', '1', 'Fall', 2009, 'B-'),
+(45678, 'CS-101', '1', 'Fall', 2009, 'F'),
+(45678, 'CS-101', '1', 'Spring', 2010, 'B+'),
+(45678, 'CS-319', '1', 'Spring', 2010, 'B'),
+(54321, 'CS-101', '1', 'Fall', 2009, 'A-'),
+(54321, 'CS-190', '2', 'Spring', 2009, 'B+'),
+(55739, 'MU-199', '1', 'Spring', 2010, 'A-'),
+(76543, 'CS-101', '1', 'Fall', 2009, 'A'),
+(76543, 'CS-319', '2', 'Spring', 2010, 'A'),
+(76653, 'EE-181', '1', 'Spring', 2009, 'C'),
+(98765, 'CS-101', '1', 'Fall', 2009, 'C-'),
+(98765, 'CS-315', '1', 'Spring', 2010, 'B'),
+(98988, 'BIO-101', '1', 'Summer', 2009, 'A'),
+(98988, 'BIO-301', '1', 'Summer', 2010, NULL);
+
 
 -- Insert data into advisor
 INSERT INTO advisor (s_ID, i_ID)
 VALUES 
-(1001, 1),
-(1002, 2),
-(1003, 3),
-(1004, 4);
+(00128, 10101),
+(12345, 12121),
+(19991, 32343),
+(23121, 12121);
+
 
 -- Insert data into timeslot
 INSERT INTO timeslot (time_slot_id, day, start_time, end_time)
@@ -206,4 +279,6 @@ VALUES
 (101, 201),
 (102, 101),
 (202, 201),
-(201, NULL);  -- This assumes NULL is allowed
+(201, NULL);  
+
+
